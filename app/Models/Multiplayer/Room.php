@@ -689,7 +689,9 @@ class Room extends Model
             throw new InvariantException(osu_trans('multiplayer.room.errors.name_too_long'));
         }
 
-        PlaylistItem::assertBeatmapsExist($playlistItems);
+        if (!$this->isMatchmaking()) {
+            PlaylistItem::assertBeatmapsExist($playlistItems);
+        }
 
         $this->getConnection()->transaction(function () use ($host, $playlistItems) {
             $this->save(); // need to persist to get primary key for channel name.
