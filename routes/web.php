@@ -691,5 +691,9 @@ Route::group(['prefix' => '_lio', 'middleware' => 'lio', 'as' => 'interop.'], fu
     });
 });
 
+Route::group(['namespace' => 'Arcade'], function() {
+    Route::get('arcade-leaderboard', 'ArcadeController@leaderboard');
+});
+
 Route::get('opensearch.xml', 'HomeController@opensearch');
 Route::any('{catchall}', 'FallbackController@index')->where('catchall', '.*')->fallback();
